@@ -1,0 +1,1188 @@
+    /* ============================================
+       DESIGN TOKENS
+       Change these to retheme the entire site.
+       bg = page background
+       ink = body text
+       accent = call-to-action color
+       muted = secondary/helper text
+       line = border/divider color
+    ============================================ */
+    :root {
+      --bg:      #F7F4EF;   /* warm off-white — feels paper, not sterile */
+      --ink:     #1A1714;   /* near-black, warm undertone */
+      --accent:  #C84B31;   /* burnt orange-red — urgent, human, decisive */
+      --accent2: #1A1714;   /* dark for secondary buttons */
+      --muted:   #7A7269;   /* warm mid-grey for subtext */
+      --card:    #FFFFFF;   /* white cards on warm bg */
+      --line:    #E0DAD1;   /* warm rule/border */
+      --green:   #2A6B4A;   /* for "after" state / guarantee ticks */
+
+      --font-display: 'Fraunces', Georgia, serif;
+      --font-body:    'DM Sans', system-ui, sans-serif;
+
+      --radius:  6px;
+      --max-w:   780px;     /* keeps reading lines tight — like a book */
+    }
+
+    /* ============================================
+       RESET & BASE
+    ============================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { max-width: 100%; display: block; }
+    button { cursor: pointer; font-family: inherit; }
+
+    /* ============================================
+       LAYOUT UTILITIES
+    ============================================ */
+
+    /* Constrained width centered container */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Wide container for tables / before-after */
+    .container-wide {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Section spacing */
+    .section { padding: 80px 0; }
+    .section--sm { padding: 56px 0; }
+    .section--lg { padding: 112px 0; }
+
+    /* Horizontal rule / divider */
+    .rule {
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 0;
+    }
+
+    /* ============================================
+       TYPOGRAPHY SCALE
+       Fraunces for display (emotional weight)
+       DM Sans for body (clarity and speed)
+    ============================================ */
+
+    /* Big dramatic headlines */
+    .display {
+      font-family: var(--font-display);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+    }
+
+    /* Section headings */
+    .headline {
+      font-family: var(--font-display);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    /* Eyebrow labels above headlines */
+    .eyebrow {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ============================================
+       BUTTONS
+       Two types: primary (urgent red) and ghost (outlined)
+    ============================================ */
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: var(--radius);
+      border: 2px solid transparent;
+      transition: all 0.18s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    /* Primary — red, high urgency */
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .btn-primary:hover {
+      background: #B03D25;
+      border-color: #B03D25;
+      transform: translateY(-1px);
+    }
+
+    /* Ghost — outlined, secondary action */
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+    .btn-ghost:hover {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    /* Full width — for inside forms / cards */
+    .btn-full { width: 100%; }
+
+    /* ============================================
+       NAVIGATION
+       Simple, sticky, honest. Brand + one action.
+    ============================================ */
+
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+
+    /* Adds border when scrolled (JS toggled) */
+    #nav.scrolled { border-bottom-color: var(--line); }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 20px;
+      color: var(--ink);
+      letter-spacing: -0.04em;
+      background: none;
+      border: none;
+    }
+
+    /* Desktop nav links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* Hamburger for mobile */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    /* Mobile menu overlay */
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .nav-links-cta { display: none; }
+      .nav-toggle { display: block; }
+    }
+
+    /* ============================================
+       HERO SECTION
+       Hormozi: Hook in the first 3 seconds.
+       Pain first. Then the promise.
+       Specificity builds credibility.
+    ============================================ */
+
+    #hero {
+      padding-top: 140px;
+      padding-bottom: 80px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    /* Urgency strip at very top */
+    .urgency-strip {
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 8px 16px;
+      letter-spacing: 0.02em;
+    }
+    /* Position it above the nav */
+    .urgency-strip { position: fixed; top: 0; left: 0; right: 0; z-index: 101; }
+    #nav { top: 36px; }  /* push nav below the strip */
+    #hero { padding-top: 176px; }
+
+    .hero-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    /* Main headline — enormous, editorial */
+    .hero-headline {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(44px, 8vw, 82px);
+      line-height: 0.97;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      margin-bottom: 28px;
+    }
+
+    /* Italic emphasis to add voice */
+    .hero-headline em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    /* Subheadline — the promise in plain English */
+    .hero-sub {
+      font-size: 18px;
+      line-height: 1.55;
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 36px;
+    }
+
+    /* CTA row — two buttons */
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 48px;
+    }
+
+    /* Trust signal below CTA */
+    .hero-trust {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Stat bar — three bold proof points */
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 56px;
+    }
+
+    .stat-item {
+      background: var(--card);
+      padding: 24px 20px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(28px, 5vw, 40px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* ============================================
+       PROBLEM SECTION
+       Hormozi: Make them feel the problem.
+       Use their exact words. Make it specific.
+       The more specific, the more believable.
+    ============================================ */
+
+    #problem { background: var(--ink); color: var(--bg); }
+
+    #problem .eyebrow { color: rgba(247,244,239,0.45); }
+
+    .problem-headline {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(32px, 5vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--bg);
+      margin-bottom: 48px;
+    }
+
+    /* Each problem as a typographic statement */
+    .problem-list {
+      list-style: none;
+      border-top: 1px solid rgba(247,244,239,0.12);
+    }
+
+    .problem-item {
+      display: flex;          /* flex instead of grid — no pseudo-element column confusion */
+      gap: 20px;
+      padding: 28px 0;
+      border-bottom: 1px solid rgba(247,244,239,0.12);
+      align-items: flex-start;
+    }
+
+    /* Explicit number element — sits left, never wraps */
+    .problem-num {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      min-width: 28px;        /* fixed width so text column starts consistently */
+      flex-shrink: 0;
+      padding-top: 4px;       /* aligns baseline with title */
+    }
+
+    /* Text block takes all remaining width */
+    .problem-content { flex: 1; min-width: 0; }
+
+    .problem-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(18px, 2.5vw, 22px);
+      line-height: 1.2;
+      color: var(--bg);
+      margin-bottom: 8px;
+    }
+
+    .problem-body {
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(247,244,239,0.55);
+    }
+
+    /* Big cost callout */
+    .cost-callout {
+      margin-top: 64px;
+      padding: 36px;
+      border: 1px solid rgba(247,244,239,0.15);
+      border-radius: var(--radius);
+      text-align: center;
+    }
+
+    .cost-amount {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(40px, 7vw, 72px);
+      letter-spacing: -0.04em;
+      color: var(--accent);
+      line-height: 1;
+      display: block;
+      margin: 12px 0;
+    }
+
+    .cost-note {
+      font-size: 14px;
+      color: rgba(247,244,239,0.45);
+    }
+
+    /* ============================================
+       SOLUTION / BEFORE-AFTER
+       Hormozi: Show the transformation.
+       Before/After is the most powerful framing tool.
+       Always show what they're moving FROM, not just TO.
+    ============================================ */
+
+    #solution { background: var(--bg); }
+
+    .ba-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 40px;
+    }
+
+    .ba-col { padding: 32px; }
+    .ba-col:first-child { border-right: 1px solid var(--line); }
+
+    .ba-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .ba-label--before { color: #B03D25; }
+    .ba-label--after  { color: var(--green); }
+
+    .ba-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+
+    .ba-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    /* Icon for before/after rows */
+    .ba-icon {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      margin-top: 1px;
+    }
+    .ba-icon--no  { background: #FDECEA; color: #B03D25; }
+    .ba-icon--yes { background: #E6F4EC; color: var(--green); }
+
+    /* Benefit cards below before/after */
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .benefit-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .benefit-icon {
+      width: 36px;
+      height: 36px;
+      background: #F0EDE8;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .benefit-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 17px;
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .benefit-body {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+
+    /* ============================================
+       OFFER SECTION — VALUE STACK
+       Hormozi: Stack value high. Anchor the price up.
+       Then reveal a price so low they feel like thieves.
+       Every line item must feel tangible and real.
+    ============================================ */
+
+    #offer { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+    .offer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 40px;
+      align-items: start;
+    }
+
+    /* Value stack list */
+    .value-stack { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+
+    .value-stack-header {
+      padding: 16px 20px;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: grid;
+      grid-template-columns: 1fr auto;
+    }
+
+    .value-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+    .value-item:last-child { border-bottom: none; }
+
+    .value-item-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Tick icon before each value item */
+    .tick {
+      width: 16px; height: 16px;
+      background: #E6F4EC;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green);
+      font-size: 9px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .value-price {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    /* Total row */
+    .value-total {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      background: var(--bg);
+      border-top: 2px solid var(--line);
+    }
+
+    .value-total-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .value-total-amount {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 20px;
+      text-decoration: line-through;
+      color: var(--muted);
+    }
+
+    /* Pricing card on right side of offer grid */
+    .price-card {
+      border: 2px solid var(--ink);
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: sticky;
+      top: 96px;   /* stays visible as value stack scrolls */
+    }
+
+    .price-card-header {
+      background: var(--ink);
+      color: var(--bg);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .price-label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(247,244,239,0.5);
+      margin-bottom: 8px;
+    }
+
+    /* "Was" price — anchors perception */
+    .price-was {
+      font-size: 14px;
+      text-decoration: line-through;
+      color: rgba(247,244,239,0.4);
+      margin-bottom: 4px;
+    }
+
+    /* Actual offer price — BIG */
+    .price-main {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(40px, 6vw, 56px);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--bg);
+    }
+
+    .price-ngn {
+      font-size: 18px;
+      color: rgba(247,244,239,0.6);
+      margin-top: 4px;
+    }
+
+    .price-installment {
+      font-size: 13px;
+      color: rgba(247,244,239,0.45);
+      margin-top: 8px;
+    }
+
+    .price-card-body { padding: 24px; }
+
+    .price-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .price-feature:last-of-type { margin-bottom: 20px; }
+
+    /* Savings badge */
+    .savings-badge {
+      background: #E6F4EC;
+      color: var(--green);
+      border: 1px solid #C3E0CE;
+      border-radius: 4px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    /* What's NOT included */
+    .not-included {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .not-item {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    /* ============================================
+       HOW IT WORKS
+       Hormozi: Reduce time-to-result anxiety.
+       Show a clear path. Use timelines.
+       "Live in 14 days" removes the fear of delay.
+    ============================================ */
+
+    #process { background: var(--bg); }
+
+    .process-steps {
+      counter-reset: step;
+      margin-top: 40px;
+    }
+
+    .process-step {
+      counter-increment: step;
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 24px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--line);
+      align-items: start;
+    }
+
+    .step-number {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 40px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--line);
+    }
+
+    .step-day {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .step-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(18px, 2.5vw, 22px);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .step-body {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    /* ============================================
+       GUARANTEE SECTION
+       Hormozi: Take ALL the risk. The guarantee
+       should terrify you (the seller), not the buyer.
+       Specific promises beat vague ones every time.
+    ============================================ */
+
+    #guarantee { background: var(--ink); color: var(--bg); }
+
+    .guarantee-box {
+      border: 1px solid rgba(247,244,239,0.15);
+      border-radius: var(--radius);
+      padding: 48px;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* Shield icon */
+    .shield-icon {
+      width: 64px; height: 64px;
+      border: 2px solid rgba(247,244,239,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 28px;
+    }
+
+    .guarantee-headline {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--bg);
+      margin-bottom: 16px;
+    }
+
+    .guarantee-sub {
+      font-size: 16px;
+      color: rgba(247,244,239,0.55);
+      margin-bottom: 32px;
+    }
+
+    .guarantee-promises {
+      list-style: none;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .guarantee-promise {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: rgba(247,244,239,0.8);
+    }
+
+    .g-tick {
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: rgba(42,107,74,0.3);
+      border: 1px solid rgba(42,107,74,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6FD4A0;
+      font-size: 10px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .guarantee-footer {
+      font-size: 13px;
+      color: rgba(247,244,239,0.3);
+    }
+
+    /* ============================================
+       FAQ SECTION
+       Hormozi: Objections are buying signals.
+       Handle them ALL upfront. Never dodge.
+       Every FAQ should remove a reason NOT to buy.
+    ============================================ */
+
+    #faq { background: var(--bg); }
+
+    .faq-list { margin-top: 40px; }
+
+    .faq-item {
+      border-bottom: 1px solid var(--line);
+    }
+
+    /* Clickable question row */
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 0;
+      background: none;
+      border: none;
+      text-align: left;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(16px, 2vw, 18px);
+      line-height: 1.3;
+      color: var(--ink);
+      transition: color 0.15s;
+    }
+
+    .faq-question:hover { color: var(--accent); }
+
+    /* Chevron icon — rotates when open */
+    .faq-chevron {
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s ease;
+      color: var(--muted);
+    }
+
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+    /* Answer body — expands with JS */
+    .faq-answer {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.3s ease;
+    }
+
+    .faq-answer-inner {
+      padding-bottom: 20px;
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    /* ============================================
+       FINAL CTA / LEAD FORM
+       Hormozi: Make it stupidly easy to say yes.
+       One form. Three fields. Zero friction.
+       Re-state the offer. Create urgency.
+    ============================================ */
+
+    #contact { background: var(--card); border-top: 1px solid var(--line); }
+
+    .cta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .cta-eyebrow { color: var(--accent); margin-bottom: 16px; }
+
+    .cta-headline {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .cta-sub {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    /* Mini trust list in left column */
+    .trust-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 15px;
+      color: var(--ink);
+    }
+
+    .trust-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* Urgency text */
+    .cta-urgency {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+
+    /* Form card on the right */
+    .form-card {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 32px;
+    }
+
+    .form-group { margin-bottom: 16px; }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px 14px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--ink);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .form-input:focus { border-color: var(--ink); }
+    .form-input::placeholder { color: #C1BAB0; }
+
+    /* Loading spinner */
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .form-privacy {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    /* Success state */
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .success-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+
+    .success-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .success-body {
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+
+    #footer {
+      background: var(--ink);
+      color: rgba(247,244,239,0.4);
+      padding: 24px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    #footer strong {
+      color: var(--bg);
+      font-family: var(--font-display);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    /* ============================================
+       SCROLL ANIMATIONS
+       Simple fade + rise on scroll.
+       Applied via JS IntersectionObserver.
+       No libraries needed.
+    ============================================ */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stagger children */
+    .reveal-children > * {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+
+    .reveal-children.visible > * { opacity: 1; transform: translateY(0); }
+    .reveal-children.visible > *:nth-child(1) { transition-delay: 0ms; }
+    .reveal-children.visible > *:nth-child(2) { transition-delay: 80ms; }
+    .reveal-children.visible > *:nth-child(3) { transition-delay: 160ms; }
+    .reveal-children.visible > *:nth-child(4) { transition-delay: 240ms; }
+    .reveal-children.visible > *:nth-child(5) { transition-delay: 320ms; }
+    .reveal-children.visible > *:nth-child(6) { transition-delay: 400ms; }
+    .reveal-children.visible > *:nth-child(7) { transition-delay: 480ms; }
+    .reveal-children.visible > *:nth-child(8) { transition-delay: 560ms; }
+
+    /* ============================================
+       RESPONSIVE — MOBILE
+       All major layout changes below 640px
+    ============================================ */
+
+    @media (max-width: 640px) {
+
+      /* Section spacing */
+      .section { padding: 56px 0; }
+      .section--lg { padding: 72px 0; }
+
+      /* Stats: stack vertically */
+      .stat-row { grid-template-columns: 1fr; }
+      .stat-item { border-bottom: 1px solid var(--line); }
+      .stat-item:last-child { border-bottom: none; }
+
+      /* Before/After: stack */
+      .ba-grid { grid-template-columns: 1fr; }
+      .ba-col:first-child { border-right: none; border-bottom: 1px solid var(--line); }
+
+      /* Benefits: single column */
+      .benefit-grid { grid-template-columns: 1fr; }
+
+      /* Offer: stack columns */
+      .offer-grid { grid-template-columns: 1fr; }
+      .price-card { position: static; }
+
+      /* Process: tighten gap */
+      .process-step { grid-template-columns: 48px 1fr; gap: 16px; }
+      .step-number { font-size: 32px; }
+
+      /* Guarantee box: reduce padding */
+      .guarantee-box { padding: 32px 24px; }
+
+      /* CTA: stack */
+      .cta-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    /* ============================================
+       PRINT / ACCESSIBILITY
+    ============================================ */
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal, .reveal-children > * { transition: none; opacity: 1; transform: none; }
+      .spinner { animation: none; }
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    ::selection { background: rgba(200,75,49,0.15); }
