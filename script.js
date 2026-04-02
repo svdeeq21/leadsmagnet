@@ -1,114 +1,97 @@
-  // ============================================
-    // YEAR — Auto-updates copyright year in footer
-    // ============================================
+ // ---- AUTO YEAR ----
     document.getElementById('year').textContent = new Date().getFullYear();
 
 
-    // ============================================
-    // NAVIGATION — Scroll detection + mobile menu
-    // ============================================
-
-    // Add border to nav when user scrolls past 10px
+    // ---- NAVIGATION SCROLL BEHAVIOUR ----
+    // Adds a solid background + border to nav after scrolling 20px
     window.addEventListener('scroll', () => {
-      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 10);
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
     }, { passive: true });
 
-    // Toggle mobile nav
+
+    // ---- MOBILE NAV TOGGLE ----
     document.getElementById('nav-toggle').addEventListener('click', () => {
       document.getElementById('nav-mobile').classList.toggle('open');
     });
-
     function closeMobileNav() {
       document.getElementById('nav-mobile').classList.remove('open');
     }
 
 
-    // ============================================
-    // FAQ ACCORDION
-    // Click a question to expand/collapse the answer.
-    // Only one open at a time (closes others).
-    // ============================================
+    // ---- HERO CARDS STAGGER ----
+    // Animate the floating proof cards on the right of the hero with a delay
+    window.addEventListener('load', () => {
+      const cards = document.querySelectorAll('.hero-card');
+      cards.forEach((card, i) => {
+        setTimeout(() => card.classList.add('visible'), 400 + i * 180);
+      });
+    });
 
+
+    // ---- FAQ ACCORDION ----
+    // One open at a time. Closes others when a new one opens.
     function toggleFAQ(btn) {
-      const item = btn.closest('.faq-item');
+      const item   = btn.closest('.faq-item');
       const answer = item.querySelector('.faq-answer');
       const isOpen = item.classList.contains('open');
 
-      // Close all open items first
+      // Close all
       document.querySelectorAll('.faq-item.open').forEach(el => {
         el.classList.remove('open');
         el.querySelector('.faq-answer').style.maxHeight = '0';
       });
 
-      // If it was closed, open it now
+      // Open clicked one if it was closed
       if (!isOpen) {
         item.classList.add('open');
-        // Set max-height to scroll height so CSS transition works
         answer.style.maxHeight = answer.scrollHeight + 'px';
       }
     }
 
 
-    // ============================================
-    // SCROLL REVEAL ANIMATION
-    // Uses IntersectionObserver to add .visible class
-    // when elements enter the viewport.
-    // CSS handles the actual transition.
-    // ============================================
+    // ---- SCROLL REVEAL ----
+    // Fades in .reveal and .reveal-children elements as they enter viewport.
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
 
-    const revealObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            revealObserver.unobserve(entry.target); // only trigger once
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
-
-    // Observe all .reveal and .reveal-children elements
     document.querySelectorAll('.reveal, .reveal-children').forEach(el => {
-      revealObserver.observe(el);
+      revealObs.observe(el);
     });
 
 
-    // ============================================
-    // FORM SUBMISSION
-    // Shows spinner → success message on submit.
-    // 
-    // TO CONNECT TO A REAL BACKEND:
-    // Replace the setTimeout with a fetch() call
-    // to your API endpoint or form service (e.g. Formspree, Make, etc.)
-    // ============================================
-
+    // ---- FORM SUBMISSION ----
+    // Shows spinner → success state on submit.
+    //
+    // TO CONNECT TO A REAL BACKEND, replace the setTimeout block with:
+    //
+    //   fetch('https://YOUR_ENDPOINT', {
+    //     method: 'POST',
+    //     body: new FormData(e.target),
+    //     headers: { Accept: 'application/json' }
+    //   }).then(() => showFormSuccess());
+    //
+    // Good free options: Formspree, Make.com webhook, Netlify Forms
     function handleFormSubmit(e) {
       e.preventDefault();
-
-      const btn    = document.getElementById('submit-btn');
-      const label  = document.getElementById('submit-label');
+      const btn     = document.getElementById('submit-btn');
+      const label   = document.getElementById('submit-label');
       const spinner = document.getElementById('submit-spinner');
 
-      // Show loading state
-      btn.disabled = true;
-      label.textContent = 'Sending...';
+      btn.disabled       = true;
+      label.textContent  = 'Sending...';
       spinner.style.display = 'block';
 
-      // ---- REPLACE THIS BLOCK WITH YOUR REAL API CALL ----
-      // Example using Formspree:
-      // fetch('https://formspree.io/f/YOUR_ID', {
-      //   method: 'POST',
-      //   body: new FormData(e.target),
-      //   headers: { Accept: 'application/json' }
-      // }).then(() => showSuccess());
-      // ---- END OF BLOCK TO REPLACE ----
-
-      // Simulated 1.5s delay (remove when using real backend)
-      setTimeout(showSuccess, 1500);
+      // ↓ Replace this with your real API call
+      setTimeout(showFormSuccess, 1500);
     }
 
-    function showSuccess() {
-      document.getElementById('lead-form').style.display = 'none';
+    function showFormSuccess() {
+      document.getElementById('lead-form').style.display    = 'none';
       document.getElementById('form-success').style.display = 'block';
     }

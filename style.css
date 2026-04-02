@@ -1,604 +1,629 @@
+
     /* ============================================
        DESIGN TOKENS
-       Change these to retheme the entire site.
-       bg = page background
-       ink = body text
-       accent = call-to-action color
-       muted = secondary/helper text
-       line = border/divider color
+       Edit here to retheme the entire site.
     ============================================ */
     :root {
-      --bg:      #F7F4EF;   /* warm off-white — feels paper, not sterile */
-      --ink:     #1A1714;   /* near-black, warm undertone */
-      --accent:  #C84B31;   /* burnt orange-red — urgent, human, decisive */
-      --accent2: #1A1714;   /* dark for secondary buttons */
-      --muted:   #7A7269;   /* warm mid-grey for subtext */
-      --card:    #FFFFFF;   /* white cards on warm bg */
-      --line:    #E0DAD1;   /* warm rule/border */
-      --green:   #2A6B4A;   /* for "after" state / guarantee ticks */
+      --bg:       #0E0E0F;      /* near-black — commanding, premium */
+      --bg2:      #141416;      /* slightly lighter for section contrast */
+      --card:     #1A1A1D;      /* card surfaces */
+      --card2:    #202025;      /* elevated card */
+      --amber:    #F5A623;      /* electric amber — urgency, energy, fire */
+      --amber-dk: #C87D0E;      /* darker amber for hover states */
+      --ink:      #F0EDE8;      /* warm white — not sterile */
+      --muted:    #8A8580;      /* mid grey for subtext */
+      --line:     #2A2A2F;      /* border/divider */
+      --green:    #3DAA6E;      /* success / guarantee ticks */
+      --red:      #E05555;      /* problem indicators */
 
-      --font-display: 'Fraunces', Georgia, serif;
-      --font-body:    'DM Sans', system-ui, sans-serif;
+      --font-display: 'Syne', sans-serif;
+      --font-body:    'Outfit', sans-serif;
 
-      --radius:  6px;
-      --max-w:   780px;     /* keeps reading lines tight — like a book */
+      --max-w:    1100px;
+      --radius:   8px;
+      --radius-lg: 16px;
     }
 
     /* ============================================
-       RESET & BASE
+       RESET
     ============================================ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; font-size: 16px; }
-
     body {
       background: var(--bg);
       color: var(--ink);
       font-family: var(--font-body);
       font-weight: 400;
-      line-height: 1.6;
+      line-height: 1.65;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
-
+    a { color: inherit; text-decoration: none; }
     img { max-width: 100%; display: block; }
-    button { cursor: pointer; font-family: inherit; }
+    button { cursor: pointer; font-family: inherit; border: none; background: none; }
 
     /* ============================================
-       LAYOUT UTILITIES
+       LAYOUT HELPERS
     ============================================ */
-
-    /* Constrained width centered container */
-    .container {
+    .wrap {
       max-width: var(--max-w);
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 28px;
     }
-
-    /* Wide container for tables / before-after */
-    .container-wide {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* Section spacing */
-    .section { padding: 80px 0; }
-    .section--sm { padding: 56px 0; }
-    .section--lg { padding: 112px 0; }
-
-    /* Horizontal rule / divider */
-    .rule {
-      border: none;
-      border-top: 1px solid var(--line);
-      margin: 0;
-    }
-
-    /* ============================================
-       TYPOGRAPHY SCALE
-       Fraunces for display (emotional weight)
-       DM Sans for body (clarity and speed)
-    ============================================ */
-
-    /* Big dramatic headlines */
-    .display {
-      font-family: var(--font-display);
-      font-weight: 900;
-      line-height: 1.0;
-      letter-spacing: -0.03em;
-    }
-
-    /* Section headings */
-    .headline {
-      font-family: var(--font-display);
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-    }
-
-    /* Eyebrow labels above headlines */
-    .eyebrow {
-      font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
+    .section        { padding: 100px 0; }
+    .section--sm    { padding: 64px 0; }
+    .section--lg    { padding: 140px 0; }
+    hr.rule         { border: none; border-top: 1px solid var(--line); }
 
     /* ============================================
        BUTTONS
-       Two types: primary (urgent red) and ghost (outlined)
     ============================================ */
-
     .btn {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
       gap: 8px;
       padding: 14px 28px;
       font-family: var(--font-body);
       font-size: 15px;
       font-weight: 600;
       border-radius: var(--radius);
-      border: 2px solid transparent;
       transition: all 0.18s ease;
-      text-decoration: none;
+      cursor: pointer;
       white-space: nowrap;
     }
-
-    /* Primary — red, high urgency */
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
+    .btn-amber {
+      background: var(--amber);
+      color: #0E0E0F;
+      border: 2px solid var(--amber);
     }
-    .btn-primary:hover {
-      background: #B03D25;
-      border-color: #B03D25;
-      transform: translateY(-1px);
+    .btn-amber:hover {
+      background: var(--amber-dk);
+      border-color: var(--amber-dk);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(245,166,35,0.25);
     }
-
-    /* Ghost — outlined, secondary action */
-    .btn-ghost {
+    .btn-outline {
       background: transparent;
       color: var(--ink);
-      border-color: var(--ink);
+      border: 2px solid var(--line);
     }
-    .btn-ghost:hover {
-      background: var(--ink);
-      color: var(--bg);
+    .btn-outline:hover {
+      border-color: var(--amber);
+      color: var(--amber);
     }
+    .btn-full { width: 100%; justify-content: center; }
+    .btn-lg { padding: 17px 36px; font-size: 16px; }
 
-    /* Full width — for inside forms / cards */
-    .btn-full { width: 100%; }
+    /* Arrow icon that rotates on hover */
+    .btn-arrow { transition: transform 0.2s; }
+    .btn:hover .btn-arrow { transform: translateX(4px); }
+
+    /* ============================================
+       EYEBROW / LABEL
+    ============================================ */
+    .eyebrow {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--amber);
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+    .eyebrow--muted { color: var(--muted); }
 
     /* ============================================
        NAVIGATION
-       Simple, sticky, honest. Brand + one action.
     ============================================ */
-
     #nav {
       position: fixed;
       top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: var(--bg);
+      z-index: 200;
+      transition: background 0.3s, border-color 0.3s;
       border-bottom: 1px solid transparent;
-      transition: border-color 0.3s;
     }
-
-    /* Adds border when scrolled (JS toggled) */
-    #nav.scrolled { border-bottom-color: var(--line); }
-
+    #nav.scrolled {
+      background: rgba(14,14,15,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom-color: var(--line);
+    }
     .nav-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 60px;
-      max-width: 960px;
+      height: 68px;
+      max-width: var(--max-w);
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 28px;
     }
-
+    /* Logo mark — two parts: "HOOZE" bold + "ENT." muted */
     .nav-logo {
       font-family: var(--font-display);
-      font-weight: 900;
+      font-weight: 800;
       font-size: 20px;
+      letter-spacing: -0.03em;
       color: var(--ink);
-      letter-spacing: -0.04em;
-      background: none;
-      border: none;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
     }
-
-    /* Desktop nav links */
+    .nav-logo span { color: var(--amber); font-size: 12px; font-weight: 600; letter-spacing: 0.05em; }
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 32px;
+      gap: 36px;
       list-style: none;
     }
-
     .nav-links a {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
       color: var(--muted);
-      text-decoration: none;
       transition: color 0.15s;
+      letter-spacing: 0.01em;
     }
     .nav-links a:hover { color: var(--ink); }
+    .nav-cta { display: flex; align-items: center; gap: 12px; }
+    .nav-toggle { display: none; color: var(--ink); padding: 4px; }
 
-    /* Hamburger for mobile */
-    .nav-toggle {
-      display: none;
-      background: none;
-      border: none;
-      padding: 4px;
-    }
-
-    /* Mobile menu overlay */
+    /* Mobile nav overlay */
     .nav-mobile {
       display: none;
       position: fixed;
       inset: 0;
       background: var(--bg);
-      z-index: 99;
+      z-index: 199;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 32px;
+      gap: 28px;
     }
     .nav-mobile.open { display: flex; }
     .nav-mobile a {
       font-family: var(--font-display);
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 700;
       color: var(--ink);
-      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .nav-mobile a:hover { color: var(--amber); }
+    .nav-mobile-close {
+      position: absolute;
+      top: 22px; right: 28px;
+      font-size: 28px;
+      color: var(--muted);
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
       .nav-links { display: none; }
-      .nav-links-cta { display: none; }
+      .nav-cta   { display: none; }
       .nav-toggle { display: block; }
     }
 
     /* ============================================
-       HERO SECTION
-       Hormozi: Hook in the first 3 seconds.
-       Pain first. Then the promise.
-       Specificity builds credibility.
+       HERO
+       Hormozi: Hook in 3 seconds. Pain → Promise.
+       Asymmetric layout — headline dominates left,
+       animated stat cards float right.
     ============================================ */
-
     #hero {
-      padding-top: 140px;
-      padding-bottom: 80px;
-      border-bottom: 1px solid var(--line);
+      padding-top: 180px;
+      padding-bottom: 100px;
+      position: relative;
+      overflow: hidden;
     }
 
-    /* Urgency strip at very top */
-    .urgency-strip {
-      text-align: center;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--bg);
-      background: var(--accent);
-      padding: 8px 16px;
-      letter-spacing: 0.02em;
+    /* Subtle amber radial glow behind hero — atmosphere not decoration */
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -200px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(245,166,35,0.07) 0%, transparent 70%);
+      pointer-events: none;
     }
-    /* Position it above the nav */
-    .urgency-strip { position: fixed; top: 0; left: 0; right: 0; z-index: 101; }
-    #nav { top: 36px; }  /* push nav below the strip */
-    #hero { padding-top: 176px; }
 
-    .hero-label {
+    /* Diagonal grid lines — subtle texture */
+    #hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(240,237,232,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(240,237,232,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Availability pill */
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px 6px 8px;
+      background: rgba(245,166,35,0.1);
+      border: 1px solid rgba(245,166,35,0.2);
+      border-radius: 999px;
       font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 20px;
+      font-weight: 500;
+      color: var(--amber);
+      margin-bottom: 24px;
+    }
+    .hero-pill-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--amber);
+      animation: pulse-dot 2s ease infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(245,166,35,0.4); }
+      50%      { opacity: 0.7; box-shadow: 0 0 0 6px rgba(245,166,35,0); }
     }
 
-    /* Main headline — enormous, editorial */
+    /* Main hero headline */
     .hero-headline {
       font-family: var(--font-display);
-      font-weight: 900;
-      font-size: clamp(44px, 8vw, 82px);
-      line-height: 0.97;
+      font-weight: 800;
+      font-size: clamp(42px, 5.5vw, 72px);
+      line-height: 1.0;
       letter-spacing: -0.04em;
       color: var(--ink);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
-
-    /* Italic emphasis to add voice */
     .hero-headline em {
-      font-style: italic;
-      color: var(--accent);
+      font-style: normal;
+      color: var(--amber);
     }
 
-    /* Subheadline — the promise in plain English */
     .hero-sub {
-      font-size: 18px;
-      line-height: 1.55;
+      font-size: clamp(16px, 1.5vw, 18px);
+      line-height: 1.65;
       color: var(--muted);
-      max-width: 520px;
+      max-width: 480px;
       margin-bottom: 36px;
+      font-weight: 300;
     }
 
-    /* CTA row — two buttons */
     .hero-cta {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
-      align-items: center;
-      margin-bottom: 48px;
+      margin-bottom: 56px;
     }
 
-    /* Trust signal below CTA */
+    /* Trust line under CTAs */
     .hero-trust {
       font-size: 13px;
       color: var(--muted);
       display: flex;
       align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .hero-trust-item {
+      display: flex;
+      align-items: center;
       gap: 6px;
     }
+    .hero-trust-item svg { color: var(--amber); }
 
-    /* Stat bar — three bold proof points */
-    .stat-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--line);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-      margin-top: 56px;
+    /* Right column — floating proof cards */
+    .hero-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    .stat-item {
+    .hero-card {
       background: var(--card);
-      padding: 24px 20px;
-      text-align: center;
-    }
-
-    .stat-number {
-      font-family: var(--font-display);
-      font-weight: 900;
-      font-size: clamp(28px, 5vw, 40px);
-      line-height: 1;
-      letter-spacing: -0.04em;
-      color: var(--ink);
-      display: block;
-    }
-
-    .stat-label {
-      font-size: 12px;
-      color: var(--muted);
-      margin-top: 4px;
-      display: block;
-    }
-
-    /* ============================================
-       PROBLEM SECTION
-       Hormozi: Make them feel the problem.
-       Use their exact words. Make it specific.
-       The more specific, the more believable.
-    ============================================ */
-
-    #problem { background: var(--ink); color: var(--bg); }
-
-    #problem .eyebrow { color: rgba(247,244,239,0.45); }
-
-    .problem-headline {
-      font-family: var(--font-display);
-      font-weight: 900;
-      font-size: clamp(32px, 5vw, 56px);
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-      color: var(--bg);
-      margin-bottom: 48px;
-    }
-
-    /* Each problem as a typographic statement */
-    .problem-list {
-      list-style: none;
-      border-top: 1px solid rgba(247,244,239,0.12);
-    }
-
-    .problem-item {
-      display: flex;          /* flex instead of grid — no pseudo-element column confusion */
-      gap: 20px;
-      padding: 28px 0;
-      border-bottom: 1px solid rgba(247,244,239,0.12);
-      align-items: flex-start;
-    }
-
-    /* Explicit number element — sits left, never wraps */
-    .problem-num {
-      font-family: var(--font-display);
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--accent);
-      min-width: 28px;        /* fixed width so text column starts consistently */
-      flex-shrink: 0;
-      padding-top: 4px;       /* aligns baseline with title */
-    }
-
-    /* Text block takes all remaining width */
-    .problem-content { flex: 1; min-width: 0; }
-
-    .problem-title {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: clamp(18px, 2.5vw, 22px);
-      line-height: 1.2;
-      color: var(--bg);
-      margin-bottom: 8px;
-    }
-
-    .problem-body {
-      font-size: 15px;
-      line-height: 1.6;
-      color: rgba(247,244,239,0.55);
-    }
-
-    /* Big cost callout */
-    .cost-callout {
-      margin-top: 64px;
-      padding: 36px;
-      border: 1px solid rgba(247,244,239,0.15);
-      border-radius: var(--radius);
-      text-align: center;
-    }
-
-    .cost-amount {
-      font-family: var(--font-display);
-      font-weight: 900;
-      font-size: clamp(40px, 7vw, 72px);
-      letter-spacing: -0.04em;
-      color: var(--accent);
-      line-height: 1;
-      display: block;
-      margin: 12px 0;
-    }
-
-    .cost-note {
-      font-size: 14px;
-      color: rgba(247,244,239,0.45);
-    }
-
-    /* ============================================
-       SOLUTION / BEFORE-AFTER
-       Hormozi: Show the transformation.
-       Before/After is the most powerful framing tool.
-       Always show what they're moving FROM, not just TO.
-    ============================================ */
-
-    #solution { background: var(--bg); }
-
-    .ba-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-      margin-top: 40px;
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      opacity: 0;
+      transform: translateX(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
+    .hero-card.visible { opacity: 1; transform: translateX(0); }
+    .hero-card:nth-child(2) { margin-left: 32px; }  /* staggered indent */
 
-    .ba-col { padding: 32px; }
-    .ba-col:first-child { border-right: 1px solid var(--line); }
-
-    .ba-label {
+    .hcard-label {
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-
-    .ba-label--before { color: #B03D25; }
-    .ba-label--after  { color: var(--green); }
-
-    .ba-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
-
-    .ba-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 15px;
-      line-height: 1.4;
-    }
-
-    /* Icon for before/after rows */
-    .ba-icon {
-      flex-shrink: 0;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      font-weight: 700;
-      margin-top: 1px;
-    }
-    .ba-icon--no  { background: #FDECEA; color: #B03D25; }
-    .ba-icon--yes { background: #E6F4EC; color: var(--green); }
-
-    /* Benefit cards below before/after */
-    .benefit-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-top: 32px;
-    }
-
-    .benefit-card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 24px;
-    }
-
-    .benefit-icon {
-      width: 36px;
-      height: 36px;
-      background: #F0EDE8;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 14px;
-    }
-
-    .benefit-title {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 17px;
-      margin-bottom: 6px;
-      line-height: 1.2;
-    }
-
-    .benefit-body {
-      font-size: 14px;
-      line-height: 1.55;
       color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .hcard-value {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 32px;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .hcard-desc { font-size: 13px; color: var(--muted); }
+
+    /* ============================================
+       SECTION HEADERS (reused pattern)
+    ============================================ */
+    .section-header {
+      margin-bottom: 60px;
+      max-width: 620px;
+    }
+    .section-header.centered {
+      text-align: center;
+      max-width: 620px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(32px, 4vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--muted);
+      font-weight: 300;
     }
 
     /* ============================================
-       OFFER SECTION — VALUE STACK
-       Hormozi: Stack value high. Anchor the price up.
-       Then reveal a price so low they feel like thieves.
-       Every line item must feel tangible and real.
+       PROBLEM SECTION
+       Dark, heavy, uncomfortable — on purpose.
+       Hormozi: Make them feel the pain before you offer relief.
     ============================================ */
+    #problem { background: var(--bg2); border-top: 1px solid var(--line); }
 
-    #offer { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-
-    .offer-grid {
+    .problem-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      margin-top: 40px;
-      align-items: start;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-top: 48px;
     }
 
-    /* Value stack list */
-    .value-stack { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
-
-    .value-stack-header {
-      padding: 16px 20px;
-      background: var(--bg);
-      border-bottom: 1px solid var(--line);
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      display: grid;
-      grid-template-columns: 1fr auto;
+    .problem-card {
+      background: var(--card);
+      padding: 32px;
+      position: relative;
     }
 
-    .value-item {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 16px;
-      padding: 14px 20px;
-      border-bottom: 1px solid var(--line);
+    /* Red accent bar on the left of each problem */
+    .problem-card::before {
+      content: '';
+      position: absolute;
+      top: 32px; left: 0;
+      width: 3px;
+      height: 32px;
+      background: var(--red);
+      border-radius: 0 2px 2px 0;
+    }
+
+    .problem-num {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--red);
+      margin-bottom: 12px;
+    }
+
+    .problem-title {
+      font-family: var(--font-display);
+      font-size: clamp(17px, 1.8vw, 20px);
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 10px;
+      line-height: 1.25;
+    }
+
+    .problem-body {
       font-size: 14px;
+      line-height: 1.6;
+      color: var(--muted);
     }
-    .value-item:last-child { border-bottom: none; }
 
-    .value-item-name {
+    /* Cost callout — big number that makes the pain tangible */
+    .cost-bar {
+      margin-top: 48px;
+      padding: 40px 48px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .cost-bar-left p:first-child {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .cost-amount {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(36px, 5vw, 56px);
+      letter-spacing: -0.04em;
+      color: var(--amber);
+      line-height: 1;
+    }
+    .cost-bar-right {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 360px;
+      line-height: 1.6;
+      font-weight: 300;
     }
 
-    /* Tick icon before each value item */
-    .tick {
-      width: 16px; height: 16px;
-      background: #E6F4EC;
+    /* ============================================
+       SOLUTIONS — 3 PILLARS
+       Hormozi: Sell outcomes, not technology.
+       Each pillar = an outcome, not a service.
+    ============================================ */
+    #solutions { background: var(--bg); }
+
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-top: 56px;
+    }
+
+    .sol-card {
+      background: var(--card);
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.2s;
+    }
+    .sol-card:hover { background: var(--card2); }
+
+    .sol-icon {
+      width: 48px; height: 48px;
+      border-radius: var(--radius);
+      background: rgba(245,166,35,0.1);
+      border: 1px solid rgba(245,166,35,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      font-size: 22px;
+    }
+
+    .sol-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 10px;
+    }
+
+    .sol-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .sol-body {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--muted);
+      margin-bottom: 24px;
+      flex: 1;
+    }
+
+    .sol-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .sol-list li {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .sol-list li::before {
+      content: '→';
+      color: var(--amber);
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ============================================
+       OFFER STACK
+       Hormozi: Stack the value high, anchor price up,
+       then reveal a number that makes them feel like
+       they're stealing.
+    ============================================ */
+    #offer { background: var(--bg2); border-top: 1px solid var(--line); }
+
+    .offer-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 48px;
+      align-items: start;
+      margin-top: 56px;
+    }
+
+    /* Value stack table */
+    .value-table {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .value-table-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      padding: 14px 24px;
+      background: var(--card2);
+      border-bottom: 1px solid var(--line);
+    }
+    .value-table-head span {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .value-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: center;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--line);
+      transition: background 0.15s;
+    }
+    .value-row:last-child { border-bottom: none; }
+    .value-row:hover { background: rgba(245,166,35,0.03); }
+
+    .value-row-name {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--ink);
+    }
+    .vtick {
+      width: 18px; height: 18px;
       border-radius: 50%;
+      background: rgba(61,170,110,0.15);
+      border: 1px solid rgba(61,170,110,0.3);
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -607,11 +632,10 @@
       font-weight: 700;
       flex-shrink: 0;
     }
-
-    .value-price {
+    .value-row-price {
       font-family: var(--font-display);
       font-weight: 700;
-      font-size: 15px;
+      font-size: 14px;
       color: var(--muted);
       white-space: nowrap;
     }
@@ -620,569 +644,627 @@
     .value-total {
       display: grid;
       grid-template-columns: 1fr auto;
-      align-items: center;
       gap: 16px;
-      padding: 16px 20px;
-      background: var(--bg);
+      padding: 18px 24px;
+      background: var(--card2);
       border-top: 2px solid var(--line);
     }
-
     .value-total-label {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
       letter-spacing: 0.08em;
-    }
-
-    .value-total-amount {
-      font-family: var(--font-display);
-      font-weight: 900;
-      font-size: 20px;
-      text-decoration: line-through;
+      text-transform: uppercase;
       color: var(--muted);
     }
+    .value-total-num {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--muted);
+      text-decoration: line-through;
+    }
 
-    /* Pricing card on right side of offer grid */
+    /* Bonuses section below table */
+    .bonuses {
+      margin-top: 20px;
+      padding: 24px;
+      background: rgba(245,166,35,0.05);
+      border: 1px solid rgba(245,166,35,0.15);
+      border-radius: var(--radius-lg);
+    }
+    .bonuses-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 16px;
+    }
+    .bonus-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .bonus-item:last-child { margin-bottom: 0; }
+    .bonus-icon { flex-shrink: 0; color: var(--amber); font-size: 16px; margin-top: -1px; }
+
+    /* Right column — pricing card */
     .price-card {
-      border: 2px solid var(--ink);
-      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
       overflow: hidden;
       position: sticky;
-      top: 96px;   /* stays visible as value stack scrolls */
+      top: 88px;
     }
-
-    .price-card-header {
-      background: var(--ink);
-      color: var(--bg);
-      padding: 24px;
+    .price-card-top {
+      background: var(--amber);
+      padding: 32px 28px;
       text-align: center;
     }
-
-    .price-label {
+    .price-card-tag {
       font-size: 11px;
-      letter-spacing: 0.1em;
+      font-weight: 700;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(247,244,239,0.5);
+      color: rgba(14,14,15,0.6);
       margin-bottom: 8px;
     }
-
-    /* "Was" price — anchors perception */
     .price-was {
       font-size: 14px;
+      color: rgba(14,14,15,0.5);
       text-decoration: line-through;
-      color: rgba(247,244,239,0.4);
       margin-bottom: 4px;
     }
-
-    /* Actual offer price — BIG */
     .price-main {
       font-family: var(--font-display);
-      font-weight: 900;
-      font-size: clamp(40px, 6vw, 56px);
+      font-weight: 800;
+      font-size: clamp(44px, 6vw, 60px);
       letter-spacing: -0.04em;
+      color: #0E0E0F;
       line-height: 1;
-      color: var(--bg);
+      margin-bottom: 4px;
     }
-
     .price-ngn {
-      font-size: 18px;
-      color: rgba(247,244,239,0.6);
-      margin-top: 4px;
+      font-size: 16px;
+      color: rgba(14,14,15,0.6);
     }
-
-    .price-installment {
-      font-size: 13px;
-      color: rgba(247,244,239,0.45);
+    .price-plan {
+      font-size: 12px;
+      color: rgba(14,14,15,0.5);
       margin-top: 8px;
     }
-
-    .price-card-body { padding: 24px; }
-
+    .price-card-body { padding: 28px; }
     .price-feature {
       display: flex;
       align-items: flex-start;
-      gap: 8px;
+      gap: 10px;
       font-size: 14px;
       color: var(--ink);
       margin-bottom: 12px;
     }
     .price-feature:last-of-type { margin-bottom: 20px; }
-
-    /* Savings badge */
-    .savings-badge {
-      background: #E6F4EC;
+    .savings-pill {
+      background: rgba(61,170,110,0.12);
+      border: 1px solid rgba(61,170,110,0.25);
+      border-radius: 6px;
+      padding: 10px 16px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
       color: var(--green);
-      border: 1px solid #C3E0CE;
-      border-radius: 4px;
-      padding: 8px 12px;
-      font-size: 13px;
-      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .price-scarcity {
       text-align: center;
-      margin-bottom: 16px;
-    }
-
-    /* What's NOT included */
-    .not-included {
-      margin-top: 32px;
-      padding-top: 24px;
-      border-top: 1px solid var(--line);
-    }
-
-    .not-item {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 6px;
-    }
-
-    /* ============================================
-       HOW IT WORKS
-       Hormozi: Reduce time-to-result anxiety.
-       Show a clear path. Use timelines.
-       "Live in 14 days" removes the fear of delay.
-    ============================================ */
-
-    #process { background: var(--bg); }
-
-    .process-steps {
-      counter-reset: step;
-      margin-top: 40px;
-    }
-
-    .process-step {
-      counter-increment: step;
-      display: grid;
-      grid-template-columns: 64px 1fr;
-      gap: 24px;
-      padding: 32px 0;
-      border-bottom: 1px solid var(--line);
-      align-items: start;
-    }
-
-    .step-number {
-      font-family: var(--font-display);
-      font-weight: 900;
-      font-size: 40px;
-      line-height: 1;
-      letter-spacing: -0.04em;
-      color: var(--line);
-    }
-
-    .step-day {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 8px;
-    }
-
-    .step-title {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: clamp(18px, 2.5vw, 22px);
-      line-height: 1.2;
-      margin-bottom: 8px;
-    }
-
-    .step-body {
-      font-size: 15px;
-      line-height: 1.6;
-      color: var(--muted);
-    }
-
-    /* ============================================
-       GUARANTEE SECTION
-       Hormozi: Take ALL the risk. The guarantee
-       should terrify you (the seller), not the buyer.
-       Specific promises beat vague ones every time.
-    ============================================ */
-
-    #guarantee { background: var(--ink); color: var(--bg); }
-
-    .guarantee-box {
-      border: 1px solid rgba(247,244,239,0.15);
-      border-radius: var(--radius);
-      padding: 48px;
-      max-width: 600px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    /* Shield icon */
-    .shield-icon {
-      width: 64px; height: 64px;
-      border: 2px solid rgba(247,244,239,0.2);
-      border-radius: 50%;
+      margin-top: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 24px;
-      font-size: 28px;
+      gap: 6px;
+    }
+    .scarcity-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse-dot 2s ease infinite; }
+
+    /* ============================================
+       AUTHORITY / PROOF SECTION
+       Hormozi: Without proof, claims are just noise.
+    ============================================ */
+    #authority { background: var(--bg); }
+
+    .authority-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 56px;
     }
 
-    .guarantee-headline {
-      font-family: var(--font-display);
-      font-weight: 900;
-      font-size: clamp(28px, 4vw, 40px);
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-      color: var(--bg);
-      margin-bottom: 16px;
+    .authority-card {
+      padding: 28px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
     }
+
+    .auth-num {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 44px;
+      letter-spacing: -0.04em;
+      color: var(--amber);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .auth-label {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 300;
+    }
+
+    /* Quote from position */
+    .authority-quote {
+      margin-top: 48px;
+      padding: 40px 48px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--amber);
+      border-radius: var(--radius-lg);
+    }
+    .auth-quote-text {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(18px, 2vw, 24px);
+      color: var(--ink);
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+    .auth-quote-attr {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .auth-quote-attr strong { color: var(--ink); font-weight: 600; }
+
+    /* ============================================
+       GUARANTEE
+       Hormozi: The guarantee should terrify YOU to offer.
+       That's how you know it's good enough.
+    ============================================ */
+    #guarantee {
+      background: var(--bg2);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .guarantee-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .guarantee-badge {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      border: 2px solid rgba(245,166,35,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      margin-bottom: 24px;
+    }
+
+    .guarantee-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(28px, 3.5vw, 44px);
+      letter-spacing: -0.035em;
+      color: var(--ink);
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+    .guarantee-title em { font-style: normal; color: var(--amber); }
 
     .guarantee-sub {
       font-size: 16px;
-      color: rgba(247,244,239,0.55);
+      color: var(--muted);
       margin-bottom: 32px;
+      font-weight: 300;
+      line-height: 1.65;
     }
 
-    .guarantee-promises {
-      list-style: none;
-      text-align: left;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-bottom: 32px;
-    }
-
-    .guarantee-promise {
+    .guarantee-promises { list-style: none; }
+    .g-promise {
       display: flex;
       align-items: flex-start;
       gap: 12px;
       font-size: 15px;
+      color: var(--ink);
       line-height: 1.5;
-      color: rgba(247,244,239,0.8);
+      margin-bottom: 16px;
     }
-
-    .g-tick {
-      flex-shrink: 0;
-      width: 20px; height: 20px;
+    .g-promise:last-child { margin-bottom: 0; }
+    .g-icon {
+      width: 22px; height: 22px;
       border-radius: 50%;
-      background: rgba(42,107,74,0.3);
-      border: 1px solid rgba(42,107,74,0.5);
+      background: rgba(61,170,110,0.15);
+      border: 1px solid rgba(61,170,110,0.3);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #6FD4A0;
+      color: var(--green);
       font-size: 10px;
       font-weight: 700;
-      margin-top: 2px;
+      flex-shrink: 0;
+      margin-top: 1px;
     }
 
-    .guarantee-footer {
-      font-size: 13px;
-      color: rgba(247,244,239,0.3);
+    /* Right side — visual card */
+    .guarantee-visual {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      text-align: center;
+    }
+    .gv-shield { font-size: 64px; margin-bottom: 20px; }
+    .gv-headline {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .gv-sub { font-size: 14px; color: var(--muted); margin-bottom: 28px; }
+    .gv-items { display: flex; flex-direction: column; gap: 12px; }
+    .gv-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: var(--bg2);
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      font-size: 14px;
+    }
+    .gv-item-label { color: var(--muted); }
+    .gv-item-value { color: var(--green); font-weight: 600; font-size: 13px; }
+
+    /* ============================================
+       PROCESS — 3 STEPS
+       Hormozi: Remove time-delay anxiety.
+       Show that results come fast.
+    ============================================ */
+    #process { background: var(--bg); }
+
+    .process-track {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-top: 56px;
+    }
+
+    .process-step {
+      background: var(--card);
+      padding: 36px 32px;
+      position: relative;
+    }
+
+    .step-n {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 64px;
+      letter-spacing: -0.05em;
+      color: var(--line);
+      line-height: 1;
+      margin-bottom: 16px;
+      transition: color 0.3s;
+    }
+    .process-step:hover .step-n { color: rgba(245,166,35,0.2); }
+
+    .step-day {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 10px;
+    }
+    .step-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--ink);
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+    .step-body {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
     }
 
     /* ============================================
-       FAQ SECTION
-       Hormozi: Objections are buying signals.
-       Handle them ALL upfront. Never dodge.
-       Every FAQ should remove a reason NOT to buy.
+       FAQ — OBJECTION KILLING
     ============================================ */
+    #faq { background: var(--bg2); border-top: 1px solid var(--line); }
 
-    #faq { background: var(--bg); }
-
-    .faq-list { margin-top: 40px; }
+    .faq-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-top: 56px;
+    }
 
     .faq-item {
+      background: var(--card);
       border-bottom: 1px solid var(--line);
     }
 
-    /* Clickable question row */
     .faq-question {
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      padding: 20px 0;
-      background: none;
-      border: none;
+      padding: 22px 28px;
       text-align: left;
       font-family: var(--font-display);
       font-weight: 700;
-      font-size: clamp(16px, 2vw, 18px);
-      line-height: 1.3;
+      font-size: 15px;
       color: var(--ink);
       transition: color 0.15s;
+      line-height: 1.3;
     }
+    .faq-question:hover { color: var(--amber); }
 
-    .faq-question:hover { color: var(--accent); }
-
-    /* Chevron icon — rotates when open */
     .faq-chevron {
       flex-shrink: 0;
-      width: 20px; height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.25s ease;
       color: var(--muted);
+      transition: transform 0.25s ease;
     }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); color: var(--amber); }
 
-    .faq-item.open .faq-chevron { transform: rotate(180deg); }
-
-    /* Answer body — expands with JS */
     .faq-answer {
       overflow: hidden;
       max-height: 0;
       transition: max-height 0.3s ease;
     }
-
     .faq-answer-inner {
-      padding-bottom: 20px;
-      font-size: 15px;
-      line-height: 1.65;
+      padding: 0 28px 22px;
+      font-size: 14px;
+      line-height: 1.7;
       color: var(--muted);
     }
 
     /* ============================================
-       FINAL CTA / LEAD FORM
-       Hormozi: Make it stupidly easy to say yes.
-       One form. Three fields. Zero friction.
-       Re-state the offer. Create urgency.
+       FINAL CTA + CONTACT FORM
     ============================================ */
+    #contact { background: var(--bg); }
 
-    #contact { background: var(--card); border-top: 1px solid var(--line); }
-
-    .cta-grid {
+    .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 64px;
+      gap: 80px;
       align-items: start;
     }
 
-    .cta-eyebrow { color: var(--accent); margin-bottom: 16px; }
-
-    .cta-headline {
+    .contact-title {
       font-family: var(--font-display);
-      font-weight: 900;
-      font-size: clamp(32px, 5vw, 52px);
-      line-height: 1.0;
-      letter-spacing: -0.03em;
-      margin-bottom: 20px;
+      font-weight: 800;
+      font-size: clamp(32px, 4vw, 52px);
+      letter-spacing: -0.035em;
+      color: var(--ink);
+      margin-bottom: 16px;
+      line-height: 1.05;
     }
+    .contact-title em { font-style: normal; color: var(--amber); }
 
-    .cta-sub {
+    .contact-sub {
       font-size: 16px;
-      line-height: 1.6;
       color: var(--muted);
-      margin-bottom: 28px;
+      margin-bottom: 32px;
+      font-weight: 300;
+      line-height: 1.65;
     }
 
-    /* Mini trust list in left column */
-    .trust-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
-
-    .trust-item {
+    .contact-trust { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+    .ct-item {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       gap: 10px;
       font-size: 15px;
       color: var(--ink);
     }
-
-    .trust-dot {
+    .ct-dot {
       width: 8px; height: 8px;
       border-radius: 50%;
-      background: var(--accent);
+      background: var(--amber);
       flex-shrink: 0;
+      margin-top: 6px;
     }
 
-    /* Urgency text */
-    .cta-urgency {
+    .contact-urgency {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       font-size: 13px;
       font-weight: 600;
-      color: var(--accent);
+      color: var(--amber);
       letter-spacing: 0.02em;
     }
 
-    /* Form card on the right */
+    /* Form card */
     .form-card {
-      background: var(--bg);
+      background: var(--card);
       border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 32px;
+      border-radius: var(--radius-lg);
+      padding: 36px;
     }
 
-    .form-group { margin-bottom: 16px; }
+    .form-group { margin-bottom: 18px; }
 
     .form-label {
       display: block;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 6px;
+      margin-bottom: 7px;
     }
 
-    .form-input {
+    .form-input, .form-select {
       width: 100%;
-      padding: 12px 14px;
+      padding: 13px 16px;
       font-family: var(--font-body);
       font-size: 15px;
       color: var(--ink);
-      background: var(--card);
+      background: var(--bg);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       outline: none;
       transition: border-color 0.15s;
+      appearance: none;
     }
-    .form-input:focus { border-color: var(--ink); }
-    .form-input::placeholder { color: #C1BAB0; }
+    .form-input::placeholder { color: var(--muted); opacity: 0.5; }
+    .form-input:focus, .form-select:focus { border-color: var(--amber); }
+    .form-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A8580' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
 
-    /* Loading spinner */
+    .form-privacy { font-size: 12px; color: var(--muted); text-align: center; margin-top: 12px; }
+
+    /* Spinner */
     .spinner {
       width: 18px; height: 18px;
-      border: 2px solid rgba(255,255,255,0.3);
-      border-top-color: white;
+      border: 2px solid rgba(14,14,15,0.3);
+      border-top-color: #0E0E0F;
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
       display: none;
     }
-
     @keyframes spin { to { transform: rotate(360deg); } }
-
-    .form-privacy {
-      font-size: 12px;
-      color: var(--muted);
-      text-align: center;
-      margin-top: 12px;
-    }
 
     /* Success state */
     .form-success {
       display: none;
       text-align: center;
-      padding: 40px 20px;
+      padding: 48px 20px;
     }
-
-    .success-icon {
-      font-size: 40px;
-      margin-bottom: 16px;
-    }
-
+    .success-icon { font-size: 48px; margin-bottom: 16px; }
     .success-title {
       font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 22px;
+      font-weight: 800;
+      font-size: 24px;
+      color: var(--ink);
       margin-bottom: 8px;
     }
-
-    .success-body {
-      font-size: 15px;
-      color: var(--muted);
-    }
+    .success-body { font-size: 15px; color: var(--muted); }
 
     /* ============================================
        FOOTER
     ============================================ */
-
     #footer {
-      background: var(--ink);
-      color: rgba(247,244,239,0.4);
-      padding: 24px;
-      text-align: center;
-      font-size: 13px;
+      background: var(--bg2);
+      border-top: 1px solid var(--line);
+      padding: 40px 28px;
     }
-
-    #footer strong {
-      color: var(--bg);
+    .footer-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-logo {
       font-family: var(--font-display);
-      font-weight: 900;
+      font-weight: 800;
+      font-size: 18px;
       letter-spacing: -0.03em;
+      color: var(--ink);
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
     }
+    .footer-logo span { color: var(--amber); font-size: 11px; }
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: var(--ink); }
+    .footer-copy { font-size: 13px; color: var(--muted); }
 
     /* ============================================
-       SCROLL ANIMATIONS
-       Simple fade + rise on scroll.
-       Applied via JS IntersectionObserver.
-       No libraries needed.
+       SCROLL REVEAL
+       Elements fade in and rise as they enter viewport.
     ============================================ */
-
     .reveal {
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Stagger children */
     .reveal-children > * {
       opacity: 0;
       transform: translateY(20px);
-      transition: opacity 0.45s ease, transform 0.45s ease;
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
-
     .reveal-children.visible > * { opacity: 1; transform: translateY(0); }
     .reveal-children.visible > *:nth-child(1) { transition-delay: 0ms; }
-    .reveal-children.visible > *:nth-child(2) { transition-delay: 80ms; }
-    .reveal-children.visible > *:nth-child(3) { transition-delay: 160ms; }
-    .reveal-children.visible > *:nth-child(4) { transition-delay: 240ms; }
-    .reveal-children.visible > *:nth-child(5) { transition-delay: 320ms; }
-    .reveal-children.visible > *:nth-child(6) { transition-delay: 400ms; }
-    .reveal-children.visible > *:nth-child(7) { transition-delay: 480ms; }
-    .reveal-children.visible > *:nth-child(8) { transition-delay: 560ms; }
+    .reveal-children.visible > *:nth-child(2) { transition-delay: 90ms; }
+    .reveal-children.visible > *:nth-child(3) { transition-delay: 180ms; }
+    .reveal-children.visible > *:nth-child(4) { transition-delay: 270ms; }
+    .reveal-children.visible > *:nth-child(5) { transition-delay: 360ms; }
+    .reveal-children.visible > *:nth-child(6) { transition-delay: 450ms; }
+    .reveal-children.visible > *:nth-child(7) { transition-delay: 540ms; }
+    .reveal-children.visible > *:nth-child(8) { transition-delay: 630ms; }
 
     /* ============================================
        RESPONSIVE — MOBILE
-       All major layout changes below 640px
     ============================================ */
-
+    @media (max-width: 900px) {
+      .hero-grid        { grid-template-columns: 1fr; }
+      .hero-cards       { display: none; }   /* hide cards on mobile to keep hero clean */
+      .solutions-grid   { grid-template-columns: 1fr; }
+      .offer-layout     { grid-template-columns: 1fr; }
+      .price-card       { position: static; }
+      .authority-grid   { grid-template-columns: repeat(2, 1fr); }
+      .guarantee-inner  { grid-template-columns: 1fr; gap: 40px; }
+      .process-track    { grid-template-columns: 1fr; }
+      .faq-cols         { grid-template-columns: 1fr; }
+      .contact-grid     { grid-template-columns: 1fr; gap: 48px; }
+    }
     @media (max-width: 640px) {
-
-      /* Section spacing */
-      .section { padding: 56px 0; }
-      .section--lg { padding: 72px 0; }
-
-      /* Stats: stack vertically */
-      .stat-row { grid-template-columns: 1fr; }
-      .stat-item { border-bottom: 1px solid var(--line); }
-      .stat-item:last-child { border-bottom: none; }
-
-      /* Before/After: stack */
-      .ba-grid { grid-template-columns: 1fr; }
-      .ba-col:first-child { border-right: none; border-bottom: 1px solid var(--line); }
-
-      /* Benefits: single column */
-      .benefit-grid { grid-template-columns: 1fr; }
-
-      /* Offer: stack columns */
-      .offer-grid { grid-template-columns: 1fr; }
-      .price-card { position: static; }
-
-      /* Process: tighten gap */
-      .process-step { grid-template-columns: 48px 1fr; gap: 16px; }
-      .step-number { font-size: 32px; }
-
-      /* Guarantee box: reduce padding */
-      .guarantee-box { padding: 32px 24px; }
-
-      /* CTA: stack */
-      .cta-grid { grid-template-columns: 1fr; gap: 40px; }
+      .section          { padding: 64px 0; }
+      .section--lg      { padding: 80px 0; }
+      .problem-grid     { grid-template-columns: 1fr; }
+      .authority-grid   { grid-template-columns: 1fr; }
+      .cost-bar         { flex-direction: column; padding: 28px; }
+      .authority-quote  { padding: 28px; }
     }
-
-    /* ============================================
-       PRINT / ACCESSIBILITY
-    ============================================ */
-
     @media (prefers-reduced-motion: reduce) {
-      .reveal, .reveal-children > * { transition: none; opacity: 1; transform: none; }
-      .spinner { animation: none; }
+      .reveal, .reveal-children > *, .hero-card { transition: none; opacity: 1; transform: none; }
     }
-
-    :focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 2px;
-    }
-
-    ::selection { background: rgba(200,75,49,0.15); }
+    :focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+    ::selection { background: rgba(245,166,35,0.2); }
