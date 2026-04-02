@@ -77,19 +77,41 @@
     //   }).then(() => showFormSuccess());
     //
     // Good free options: Formspree, Make.com webhook, Netlify Forms
-    function handleFormSubmit(e) {
+    async function handleFormSubmit(e) {
       e.preventDefault();
+
+      const form    = e.target;
       const btn     = document.getElementById('submit-btn');
       const label   = document.getElementById('submit-label');
       const spinner = document.getElementById('submit-spinner');
 
-      btn.disabled       = true;
-      label.textContent  = 'Sending...';
+      btn.disabled = true;
+      label.textContent = 'Sending...';
       spinner.style.display = 'block';
 
-      // ↓ Replace this with your real API call
-      setTimeout(showFormSuccess, 1500);
-    }
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: {
+            Accept: 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          showFormSuccess();
+          form.reset();
+        } else {
+          label.textContent = 'Something went wrong';
+        }
+
+      } catch (error) {
+        label.textContent = 'Network error';
+      }
+
+      spinner.style.display = 'none';
+      btn.disabled = false;
+}
 
     function showFormSuccess() {
       document.getElementById('lead-form').style.display    = 'none';
